@@ -1,0 +1,51 @@
+# Use this file to automatically change .inp files using the function update_inp() in geoGen_RC1_assembler.py
+# Function will search each .inp until the text on the line below a -$Flag declaration is found.
+# After the flag text is found, the lines specified will be inserted.
+# Flag text only needs to be matched by the start of the line, not the entire line;
+# i.e., the flag "*End" will match *EndInstance, *EndAssembly, *EndPart, etc.
+# To insert text at the beginning of a file, use the flag $StartOfFile. To insert text at the end, use $EndOfFile.
+-$Flag
+*End Instance
+-$Insert
+node
+9999999,0.0,0.0,0.0
+*EQUATION
+2
+meshedPart-1.frontFace,1, 1.0, 9999999,1,-1.0
+-$Flag
+$EndOfFile
+-$Insert
+** ----------------------------------------------------------------
+*Boundary
+meshedPart-1.matrixBottomFace, 2, 2
+meshedPart-1.rearFace, 1, 1
+meshedPart-1.matrixRightFace, 3, 3 
+** STEP: Step-1
+** 
+*Step, name=Step-1, inc=1000
+*Dynamic,application=QUASI-STATIC,initial=NO
+0.01,1.,1e-10,0.01
+** 
+** BOUNDARY CONDITIONS
+** 
+** Name: bottom Type: Displacement/Rotation
+*Boundary
+9999999, 1, 1, 0.2
+*CONTROLS, PARAMETER=TIME INCREMENTATION
+8, 60, 70, 80, 90, 100, 110, 120, 130, 10, 150
+** 
+** OUTPUT REQUESTS
+** 
+** 
+** FIELD OUTPUT: F-Output-1
+** 
+*Output, field, frequency=1, time marks=NO
+*Node Output
+A, RF, U, V
+*Element Output, directions=YES
+E, PE, PEEQ, S, SDEG, STATUS
+** 
+** HISTORY OUTPUT: H-Output-1
+** 
+*Output, history, variable=PRESELECT
+*End Step
