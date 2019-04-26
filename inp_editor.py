@@ -133,7 +133,7 @@ class InpUpdateDict(dict):
             try:
                 # noinspection PyUnboundLocalVariable
                 sub_gen.close_file()
-            except:
+            except NameError:
                 pass
         return
 
