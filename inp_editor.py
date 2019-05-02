@@ -14,7 +14,19 @@ The text file should use the following formatting:
     To insert text at the beginning of a file, use the flag $StartOfFile
     To insert text at the end, use $EndOfFile
 
-Call update_inp() to edit the .inp file.
+To use as a standalone, change the following variables in the block at the 
+end of the file:
+    default_input_file_name: inp file you wish to modify
+    default_substitute_file_name: text file, formatted as above, detailing 
+        the insertions to be made
+        
+To use from the command line, call node_snap.py with the following options 
+corresponding to the variables listed above:
+    -i: input_file_name
+    -s: substitute_file_name
+    
+To use from another module, import and call the function update_inp() with 
+the above options as arguments.
 """
 
 
